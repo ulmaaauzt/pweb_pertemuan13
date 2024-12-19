@@ -1,0 +1,31 @@
+.box{
+    width: 200px;
+    border: 1px solid palevioletred;
+    height: 400px;
+    float: left;
+    background-color: beige;
+    margin: auto 15px;
+}
+
+.box:nth-child(1) {
+    background-color: rgb(92, 162, 182);
+}
+
+.box:nth-child(2) {
+    background-color: rgb(124, 91, 124);
+}
+
+.box:nth-child(3) {
+    background-color: rgb(197, 214, 151);
+}
+
+.box:nth-child(4) {
+    background-color: rgb(221, 166, 156);
+}
+/* CSS untuk cssbox2.html */
+.container{
+    display: flex;
+}
+.img-item {
+    width: 150px ;
+}

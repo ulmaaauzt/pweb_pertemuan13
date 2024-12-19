@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validasi</title>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(bg.jpg);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-container {
+    background: #ffffff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    background-color: rgb(165, 164, 165);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: black;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: black ;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border 0.2s ease-in-out;
+}
+
+input:focus {
+    border: 1px solid purple;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.input-error {
+    border: 2px solid red;
+}
+
+button {
+    background-color:black;
+    color: #ffffff;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.error {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
+}
+
+#output {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #cccccc;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+#output h3 {
+    margin-bottom: 10px;
+    color: #333333;
+}
+
+#output p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555555;
+}
+
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Form Pemesanan Tiket</h2>
+        <form id="ticketForm">
+            <div class="form-group">
+                <label for="nama">Nama Pelanggan:</label>
+                <input type="text" id="nama" name="nama">
+                <span class="error" id="errorNama"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+                <span class="error" id="errorEmail"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="jam">Jam Keberangkatan:</label>
+                <input type="time" id="jam" name="jam">
+                <span class="error" id="errorJam"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="tujuan">Tujuan Keberangkatan:</label>
+                <select id="tujuan" name="tujuan">
+                    <option value="">Pilih Kota...</option>
+                    <option value="Jakarta">Jakarta</option>
+                    <option value="Surabaya">Surabaya</option>
+                    <option value="Bandung">Bandung</option>
+                    <option value="Medan">Medan</option>
+                    <option value="Bali">Bali</option>
+                    <option value="Yogyakarta">Yogyakarta</option>
+                    <option value="Makassar">Makassar</option>
+                    <option value="Semarang">Semarang</option>
+                    <option value="Palembang">Palembang</option>
+                    <option value="Batam">Batam</option>
+                    <option value="kota lainnya">Kota Lainnya</option>
+                </select>
+                <input type="text" id="kotaLainnya" name="kotaLainnya" placeholder="Masukkan Kota" style="display: none; margin-top: 10px;" />
+                <span class="error" id="errorTujuan"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="jumlah">Jumlah Tiket:</label>
+                <input type="number" id="jumlah" name="jumlah">
+                <span class="error" id="errorJumlah"></span>
+            </div>
+
+            <button type="button" onclick="validateForm()">Submit</button>
+        </form>
+
+    <script>
+        function validateForm() {
+    let isValid = true;
+
+    const nama = document.getElementById("nama").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const jam = document.getElementById("jam").value.trim();
+    const tujuan = document.getElementById("tujuan").value.trim();
+    const jumlah = document.getElementById("jumlah").value.trim();
+
+    clearErrors();
+
+    if (!nama) {
+        showError("nama", "Nama pelanggan wajib diisi.");
+        isValid = false;
+    } else if (nama.length > 30) {
+        showError("nama", "Nama pelanggan maksimum 30 karakter.");
+        isValid = false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+        showError("email", "Email wajib diisi.");
+        isValid = false;
+    } else if (!emailRegex.test(email)) {
+        showError("email", "Format email tidak valid.");
+        isValid = false;
+    }
+    const jamRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+    if (!jam) {
+        showError("jam", "Jam keberangkatan wajib diisi.");
+        isValid = false;
+    } else if (!jamRegex.test(jam)) {
+        showError("jam", "Format jam harus HH:MM (00.00 - 23.59).");
+        isValid = false;
+    }
+    if (!tujuan) {
+        showError("tujuan", "Tujuan keberangkatan wajib diisi.");
+        isValid = false;
+    }
+    const jumlahInt = parseInt(jumlah, 10);
+    if (!jumlah) {
+        showError("jumlah", "Jumlah tiket wajib diisi.");
+        isValid = false;
+    } else if (isNaN(jumlahInt) || jumlahInt < 1 || jumlahInt > 10) {
+        showError("jumlah", "Jumlah tiket harus bilangan bulat antara 1 - 10.");
+        isValid = false;
+    }
+
+    if (isValid) {
+        displayData({ nama, email, jam, tujuan, jumlah });
+    }
+}
+
+function clearErrors() {
+    const errorFields = document.querySelectorAll(".error");
+    const inputFields = document.querySelectorAll("input");
+
+    errorFields.forEach((field) => (field.textContent = ""));
+    inputFields.forEach((field) => field.classList.remove("input-error"));
+}
+
+function showError(fieldId, message) {
+    document.getElementById(`error${capitalize(fieldId)}`).textContent = message;
+    document.getElementById(fieldId).classList.add("input-error");
+}
+
+function displayData(data) {
+    const output = document.getElementById("output");
+    output.innerHTML = `
+        <h3>Data Pemesanan Tiket</h3>
+        <p><strong>Nama Pelanggan:</strong> ${data.nama}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Jam Keberangkatan:</strong> ${data.jam}</p>
+        <p><strong>Tujuan Keberangkatan:</strong> ${data.tujuan}</p>
+        <p><strong>Jumlah Tiket:</strong> ${data.jumlah}</p>
+    `;
+}
+
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+    </script>
+</body>
+</html>
+
+ 

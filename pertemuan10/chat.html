@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat ajaAPP</title>
+    <style>
+        .container {
+            border: 1px solid black;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+        .chatbox {
+            height: 200px;
+            overflow-y: auto; 
+            border: 1px solid white;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        .chatbox-input {
+            width: 80%;
+            padding: 5px;
+        }
+        .chat-message {
+            margin: 5px 0;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="chatbox" id="chatbox">
+        </div>
+        <div class="chatbox-footer">
+            <input type="text" class="chatbox-input" id="chat" placeholder="masukan pesan anda....">
+            <button onclick="newChat()">kirim</button>
+        </div>
+    </div>
+    <script>
+        function newChat() {
+            let chatbox = document.getElementById("chatbox");
+            let chat = document.getElementById('chat');
+
+            if (chat.value.trim() !== "") { 
+                let chatElement = document.createElement('div');
+                chatElement.textContent = chat.value;
+                chatElement.className = 'chat-message';
+                chatbox.appendChild(chatElement);
+                chat.value = ""; 
+                chatbox.scrollTop = chatbox.scrollHeight; 
+            }
+        }
+    </script>
+</body>
+</html>

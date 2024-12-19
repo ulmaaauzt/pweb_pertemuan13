@@ -1,0 +1,29 @@
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px; 
+   height: 600px;
+    
+  }
+  .box1 {
+    width: 515px;
+    height: 100px;
+    background-color: pink;
+    border: 2px solid black;
+    border-radius: 5px;
+  }
+  .box2 {
+    width: 3500px;
+    height: 100px;
+    background-color: pink;
+    border: 2px solid black;
+    border-radius: 5px;
+  }
+  .row {
+    display: flex;
+    justify-content: center;
+    gap: 10px; 
+
+  }
